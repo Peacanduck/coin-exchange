@@ -4,10 +4,14 @@
   color: #cccccc;
 }
 
+
+
 .coin-table {
+ 
   margin: 5px auto 50px auto;
   display: inline-block;
   font-size: medium;
+  
 }
 .App-logo {
   height: 9rem;
