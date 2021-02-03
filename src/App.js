@@ -22,27 +22,32 @@ class App extends React.Component {
         
         name: 'Bitcoin',
         ticker: 'BTC',
-        price:  35470.8
+        price:  35470.8,
+        balance: 0.5
       }, 
       {
         name: 'Ethereum',
         ticker: 'ETH',
-        price:  1453.6
+        price:  1453.6,
+        balance: 32
       },
       {
         name: 'Tether',
         ticker: 'USDT',
-        price:  0.99
+        price:  0.99,
+        balance: 0
       },
       {
         name: 'Polkadot',
         ticker: 'DOT',
-        price:  17.8
+        price:  17.8,
+        balance: 100
       },
       {
         name: 'DuckDaoDimm',
         ticker: 'DDIM',
-        price:  61.4
+        price:  61.4,
+        balance: 25
       }
      ]
     }
@@ -50,7 +55,7 @@ class App extends React.Component {
     this.handleHide = this.handleHide.bind(this);
   }
   handleRefresh(nTicker){
-     const newCoinData = this.state.coinData.map(function({ticker,name,price}){
+     const newCoinData = this.state.coinData.map(function({ticker,name,price,balance}){
         let newPrice = price;
         if (nTicker === ticker) {
           const randomPercentage = 0.995 + Math.random() * 0.01;
@@ -59,7 +64,8 @@ class App extends React.Component {
         return {
           ticker,
           name,
-          price: newPrice
+          price: newPrice,
+          balance
         }
      });
 
@@ -74,7 +80,7 @@ class App extends React.Component {
     <DivApp className="App">
       <ExchangeHeader/>
       <AccountBalance amount={this.state.balance} showBalance={this.state.visible} handleHide={this.handleHide}/>
-      <CoinList coinData={this.state.coinData} handleRefresh={this.handleRefresh} />
+      <CoinList visible={this.state.visible} coinData={this.state.coinData} handleRefresh={this.handleRefresh} />
     </DivApp>
   );
 

@@ -42,6 +42,7 @@ export default class Coin extends Component {
               <StyledRow>{this.props.name}</StyledRow>
               <StyledRow>{this.props.ticker}</StyledRow>
               <StyledRow>{this.props.price}</StyledRow>
+              <StyledRow>{this.props.balance}</StyledRow>
               <StyledRow>
                   <form action="#" method="POST">
                   <button onClick={this.handleClick}>Refresh</button>
