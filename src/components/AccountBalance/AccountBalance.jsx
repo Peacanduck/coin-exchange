@@ -11,43 +11,33 @@ const Section = styled.section`
 export default class AccountBalance extends Component {
     constructor(props) {
         super(props);   
-        this.handleClickOff = this.handleClickOff.bind(this);
-        this.handleClickOn = this.handleClickOn.bind(this);
+        this.handleHideClick = this.handleHideClick.bind(this);
     }
 
-    handleClickOff(event){
+    
+
+    handleHideClick(event){
 
         event.preventDefault();
     
-        this.props.handleHide(false);
-    }
-
-    handleClickOn(event){
-
-        event.preventDefault();
-    
-        this.props.handleHide(true);
+        this.props.handleHide(!this.props.showBalance);
      }
 
     render() {
-        const show = this.props.showBalance;
+        let show = this.props.showBalance;
         const buttonText = show ? 'Hide Balance' : 'Show Balance';
-        if(show){
-            return (
-                <Section>
-                 Balance: ${this.props.amount}  
-                 <button onClick={this.handleClickOff}>{buttonText}</button>
-                </Section>
-            )
-        }
-        if(!show){
+        let content = null;
+        if(show){               
+                content =<> Balance: ${this.props.amount} </>
+        } else {
+            content = <> * </> ;        }
         return (
             <Section>
-             * 
-             <button onClick={this.handleClickOn}>{buttonText}</button>
+             {content}
+             <button onClick={this.handleHideClick}>{buttonText}</button>
             </Section>
         )
-    }
+    
     }
 }
 
