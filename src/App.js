@@ -45,9 +45,9 @@ class App extends React.Component {
       }
      ]
     }
-    this.handleRefefresh = this.handleRefefresh.bind(this);
+    this.handleRefresh = this.handleRefresh.bind(this);
   }
-  handleRefefresh(nTicker){
+  handleRefresh(nTicker){
      const coin = this.state.coinData.find(({ticker}) => ticker === nTicker);
      console.log(coin);
     }
@@ -56,7 +56,7 @@ class App extends React.Component {
     <DivApp className="App">
       <ExchangeHeader/>
       <AccountBalance amount={this.state.balance} />
-      <CoinList coinData={this.state.coinData} handleRefefresh={this.handleRefefresh} />
+      <CoinList coinData={this.state.coinData} handleRefresh={this.handleRefresh} />
     </DivApp>
   );
 

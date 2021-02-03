@@ -49,10 +49,10 @@ export default class Coin extends Component {
           <tr className="coin-row">
               <StyledRow>{this.props.name}</StyledRow>
               <StyledRow>{this.props.ticker}</StyledRow>
-              <StyledRow>{this.state.price}</StyledRow>
+              <StyledRow>{this.props.price}</StyledRow>
               <StyledRow>
                   <form action="#" method="POST">
-                  <button onClick={this.porps.handleRefresh}>Refresh</button>
+                  <button onClick={this.handleClick}>Refresh</button>
                   </form>
                   </StyledRow>
           </tr>
