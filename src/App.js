@@ -12,67 +12,57 @@ color: #cccccc;
 
 
 class App extends React.Component {
-  
-  constructor(props) {
-    super(props);
-    this.state = {
-      visible: true,
-      balance: 10000,
-      coinData: [{
-        
-        name: 'Bitcoin',
-        ticker: 'BTC',
-        price:  35470.8,
-        balance: 0.5
-      }, 
-      {
-        name: 'Ethereum',
-        ticker: 'ETH',
-        price:  1453.6,
-        balance: 32
-      },
-      {
-        name: 'Tether',
-        ticker: 'USDT',
-        price:  0.99,
-        balance: 0
-      },
-      {
-        name: 'Polkadot',
-        ticker: 'DOT',
-        price:  17.8,
-        balance: 100
-      },
-      {
-        name: 'DuckDaoDimm',
-        ticker: 'DDIM',
-        price:  61.4,
-        balance: 25
-      }
-     ]
+  state = {
+    visible: true,
+    balance: 10000,
+    coinData: [{
+      
+      name: 'Bitcoin',
+      ticker: 'BTC',
+      price:  35470.8,
+      balance: 0.5
+    }, 
+    {
+      name: 'Ethereum',
+      ticker: 'ETH',
+      price:  1453.6,
+      balance: 32
+    },
+    {
+      name: 'Tether',
+      ticker: 'USDT',
+      price:  0.99,
+      balance: 0
+    },
+    {
+      name: 'Polkadot',
+      ticker: 'DOT',
+      price:  17.8,
+      balance: 100
+    },
+    {
+      name: 'DuckDaoDimm',
+      ticker: 'DDIM',
+      price:  61.4,
+      balance: 25
     }
-    this.handleRefresh = this.handleRefresh.bind(this);
-    this.handleHide = this.handleHide.bind(this);
+   ]
   }
-  handleRefresh(nTicker){
-     const newCoinData = this.state.coinData.map(function({ticker,name,price,balance}){
-        let newPrice = price;
-        if (nTicker === ticker) {
+
+  handleRefresh = (nTicker) => {
+     const newCoinData = this.state.coinData.map(function({values}){
+        let newValue = {...values};
+        if (nTicker === values.ticker) {
           const randomPercentage = 0.995 + Math.random() * 0.01;
-          newPrice = newPrice * randomPercentage;
+          newValue.price *= randomPercentage;
         }
-        return {
-          ticker,
-          name,
-          price: newPrice,
-          balance
-        }
+        return newValue;
      });
 
      this.setState({ coinData: newCoinData});
     }
 
-    handleHide(){
+    handleHide = () => {
       this.setState(function(oldState){
         return{
           ...oldState,

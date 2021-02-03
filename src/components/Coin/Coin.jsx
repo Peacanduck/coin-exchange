@@ -8,10 +8,6 @@ const StyledRow = styled.td`
     `;
 
 export default class Coin extends Component {
-    constructor(props) {
-        super(props);   
-        this.handleClick = this.handleClick.bind(this);
-    }
     /*
     componentDidMount() {
         const callback = () => {
@@ -30,7 +26,7 @@ export default class Coin extends Component {
         setInterval( callback, 1000);
     }
     */
-   handleClick(event){
+   handleClick = (event) => {
 
     event.preventDefault();
 
