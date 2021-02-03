@@ -9,13 +9,8 @@ const StyledRow = styled.td`
 
 export default class Coin extends Component {
     constructor(props) {
-        super(props);
-            this.state = {
-                price: this.props.price
-            }
-
-            this.handleClick = this.handleClick.bind(this);
-        
+        super(props);   
+        this.handleClick = this.handleClick.bind(this);
     }
     /*
     componentDidMount() {
@@ -39,13 +34,15 @@ export default class Coin extends Component {
 
     event.preventDefault();
 
-    const randomPercentage = 0.995 + Math.random() * 0.01;
+    this.props.handleRefresh(this.props.ticker);
 
-    this.setState( oldState => {
-        return {
-            price: oldState.price * randomPercentage
-        };
-    });
+    //const randomPercentage = 0.995 + Math.random() * 0.01;
+
+ //   this.setState( oldState => {
+   //     return {
+          //  price: oldState.price * randomPercentage
+     //   };
+    //});
    }
     render() {
         return (
@@ -55,7 +52,7 @@ export default class Coin extends Component {
               <StyledRow>{this.state.price}</StyledRow>
               <StyledRow>
                   <form action="#" method="POST">
-                  <button onClick={this.handleClick}>Refresh</button>
+                  <button onClick={this.porps.handleRefresh}>Refresh</button>
                   </form>
                   </StyledRow>
           </tr>

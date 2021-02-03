@@ -1,6 +1,5 @@
 import React from 'react';
 import ExchangeHeader from './components/Headers/ExchangeHeader';
-import './App.css';
 import AccountBalance from './components/AccountBalance/AccountBalance'
 import CoinList from './components/CoinList/CoinList';
 import styled from 'styled-components';
@@ -44,18 +43,20 @@ class App extends React.Component {
         ticker: 'DDIM',
         price:  61.4
       }
-
-
-    
-    ]
+     ]
     }
+    this.handleRefefresh = this.handleRefefresh.bind(this);
   }
+  handleRefefresh(nTicker){
+     const coin = this.state.coinData.find(({ticker}) => ticker === nTicker);
+     console.log(coin);
+    }
   render() {
   return (
     <DivApp className="App">
       <ExchangeHeader/>
       <AccountBalance amount={this.state.balance} />
-      <CoinList coinData={this.state.coinData}/>
+      <CoinList coinData={this.state.coinData} handleRefefresh={this.handleRefefresh} />
     </DivApp>
   );
 
