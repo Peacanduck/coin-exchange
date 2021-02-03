@@ -16,6 +16,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      visible: true,
       balance: 10000,
       coinData: [{
         
@@ -46,6 +47,7 @@ class App extends React.Component {
      ]
     }
     this.handleRefresh = this.handleRefresh.bind(this);
+    this.handleHide = this.handleHide.bind(this);
   }
   handleRefresh(nTicker){
      const newCoinData = this.state.coinData.map(function({ticker,name,price}){
@@ -63,11 +65,15 @@ class App extends React.Component {
 
      this.setState({ coinData: newCoinData});
     }
+
+    handleHide(val){
+      this.setState({ visible: val});
+     }
   render() {
   return (
     <DivApp className="App">
       <ExchangeHeader/>
-      <AccountBalance amount={this.state.balance} />
+      <AccountBalance amount={this.state.balance} showBalance={this.state.visible} handleHide={this.handleHide}/>
       <CoinList coinData={this.state.coinData} handleRefresh={this.handleRefresh} />
     </DivApp>
   );

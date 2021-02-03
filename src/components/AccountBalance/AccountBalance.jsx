@@ -9,12 +9,45 @@ const Section = styled.section`
         
 `;
 export default class AccountBalance extends Component {
+    constructor(props) {
+        super(props);   
+        this.handleClickOff = this.handleClickOff.bind(this);
+        this.handleClickOn = this.handleClickOn.bind(this);
+    }
+
+    handleClickOff(event){
+
+        event.preventDefault();
+    
+        this.props.handleHide(false);
+    }
+
+    handleClickOn(event){
+
+        event.preventDefault();
+    
+        this.props.handleHide(true);
+     }
+
     render() {
+        const show = this.props.showBalance;
+        const buttonText = show ? 'Hide Balance' : 'Show Balance';
+        if(show){
+            return (
+                <Section>
+                 Balance: ${this.props.amount}  
+                 <button onClick={this.handleClickOff}>{buttonText}</button>
+                </Section>
+            )
+        }
+        if(!show){
         return (
             <Section>
-             Balance: ${this.props.amount}  
+             * 
+             <button onClick={this.handleClickOn}>{buttonText}</button>
             </Section>
         )
+    }
     }
 }
 
