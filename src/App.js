@@ -72,8 +72,13 @@ class App extends React.Component {
      this.setState({ coinData: newCoinData});
     }
 
-    handleHide(val){
-      this.setState({ visible: val});
+    handleHide(){
+      this.setState(function(oldState){
+        return{
+          ...oldState,
+          visible: !oldState.visible
+        }
+      });
      }
   render() {
   return (
