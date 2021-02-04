@@ -30,11 +30,11 @@ export default class Coin extends Component {
 
     event.preventDefault();
 
-    this.props.handleRefresh(this.props.ticker);
+    this.props.handleRefresh(this.props.tickerId);
    }
     render() {
         return (
-          <tr className="coin-row">
+          <tr>
               <StyledRow>{this.props.name}</StyledRow>
               <StyledRow>{this.props.ticker}</StyledRow>
               <StyledRow>{this.props.price}</StyledRow>
@@ -50,6 +50,7 @@ export default class Coin extends Component {
 }
 
 Coin.propTypes = {
+    tickerId: PropTypes.string.isRequired,
     name : PropTypes.string.isRequired,
     ticker: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired
