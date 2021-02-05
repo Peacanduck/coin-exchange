@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -7,46 +7,29 @@ const StyledRow = styled.td`
     width: 20vh;
     `;
 
-export default class Coin extends Component {
-    /*
-    componentDidMount() {
-        const callback = () => {
-            //set state to a new random value
-            const randomPercentage = 0.995 + Math.random() * 0.01;
-
-            this.setState( oldState => {
-                return {
-                    price: oldState.price * randomPercentage
-                };
-            });
-            //OR supply value
-        //    this.setState({price: oldState * randomPercentage});
-       
-        }
-        setInterval( callback, 1000);
-    }
-    */
-   handleClick = (event) => {
+export default function Coin(props) {
+   
+  const handleClick = (event) => {
 
     event.preventDefault();
 
-    this.props.handleRefresh(this.props.tickerId);
+    props.handleRefresh(props.tickerId);
    }
-    render() {
+    
         return (
           <tr>
-              <StyledRow>{this.props.name}</StyledRow>
-              <StyledRow>{this.props.ticker}</StyledRow>
-              <StyledRow>{this.props.price}</StyledRow>
-              <StyledRow>{this.props.balance}</StyledRow>
+              <StyledRow>{props.name}</StyledRow>
+              <StyledRow>{props.ticker}</StyledRow>
+              <StyledRow>{props.price}</StyledRow>
+              <StyledRow>{props.balance}</StyledRow>
               <StyledRow>
                   <form action="#" method="POST">
-                  <button onClick={this.handleClick}>Refresh</button>
+                  <button onClick={handleClick}>Refresh</button>
                   </form>
                   </StyledRow>
           </tr>
         );
-    }
+    
 }
 
 Coin.propTypes = {
