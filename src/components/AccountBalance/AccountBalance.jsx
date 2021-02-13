@@ -8,6 +8,7 @@ const Section = styled.section`
      padding: 1.5rem 0 1.5rem 5rem;
         
 `;
+
 export default function AccountBalance(props){
     
     
@@ -15,13 +16,16 @@ export default function AccountBalance(props){
         const buttonText = show ? 'Hide Balance' : 'Show Balance';
         let content = null;
         if(show){               
-                content =<> Balance: ${props.amount} </>
+                content =<> Balance: ${props.amount}
+                            <br/>
+                            Account: {props.account} </>
         } else {
             content = <> * </> ;        }
         return (
             <Section>
              {content}
              <button onClick={props.handleHide}>{buttonText}</button>
+             <button onClick={props.enableEth}>Connect MetaMask</button>
             </Section>
         )
     

@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import Web3 from 'web3';
+
 
 const DivApp = styled.div`
 text-align: center;
@@ -27,19 +29,56 @@ function insertPrice(data, key){
 }
 
 function App(props) {
-  
+  let web3;
   const [balance, setBalance] = useState(10000);
   const [visible, setVisible] = useState(true);
   const [coinData, setCoinData] = useState([]);
+  const [accounts, setAccounts] = useState([]);
 
   useEffect(function(){
     if(coinData.length === 0) {
 //mount
+
 componentDidMount();
     }
+    
   });
 
+  window.ethereum.on('accountsChanged', function (accounts){
+    setAccounts(accounts);
+    console.log("here");
+console.log(accounts);
+  });
+
+  async function ConnectMetaMask(){
+    if (window.ethereum) {
+     web3 = new Web3(window.ethereum);
+      try { 
+         window.ethereum.enable().then(async function() {
+             // User has allowed account access to DApp...
+             const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+             
+             setAccounts(accounts);
+             console.log("there");
+             console.log(accounts);
+         });
+      } catch(e) {
+         // User has denied account access to DApp...
+      }
+   }
+   // Legacy DApp Browsers
+   else if (window.web3) {
+       web3 = new Web3(window.web3.currentProvider);
+   }
+   // Non-DApp Browsers
+   else {
+       alert('You have to install MetaMask !');
+   }
+    
+  }
+
 const componentDidMount = async () => {
+  
   let coinResponses = await Promise.all([
     axios.get('https://api.coinpaprika.com/v1/coins'),
     axios.get('https://api.coinpaprika.com/v1/tickers')
@@ -53,9 +92,11 @@ const componentDidMount = async () => {
       balance: 0,
       price: insertPrice(coinResponses[1],coin.id)   
    };
+   
  });
  
  setCoinData(coinData);
+ 
  }
    
  const handleRefresh = async (nKey) => {
@@ -81,7 +122,7 @@ const componentDidMount = async () => {
   return (
     <DivApp className="App">
       <ExchangeHeader/>
-      <AccountBalance amount={balance} showBalance={visible} handleHide={handleHide}/>
+      <AccountBalance amount={balance} account={accounts[0] || "no account selected"} showBalance={visible} handleHide={handleHide} enableEth={ConnectMetaMask}/>
       <CoinList visible={visible} coinData={coinData} handleRefresh={handleRefresh} />
     </DivApp>
   );
