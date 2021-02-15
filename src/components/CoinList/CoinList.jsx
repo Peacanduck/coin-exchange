@@ -4,24 +4,46 @@ import styled from 'styled-components';
 
 const Table = styled.table`
 margin: 5px auto 50px auto;
-display: inline-block;
-font-size: medium;
+  table-layout: auto;
+  font-size: medium;
+  display: inline-block;
+ 
 `;
+const Thead = styled.thead`
+ background-color: rgba(255,255,255,0.3);
+`;
+const Th = styled.th`
+padding: 20px 15px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 12px;
+  color: #fff;
+  text-transform: uppercase;
+`;
+
+const Tbody = styled.tbody`
+  height:300px;
+  overflow-x:auto;
+  margin-top: 0px;
+  border: 1px solid rgba(255,255,255,0.3);
+
+`;
+
 
 export default function CoinList(props) {
     
         return (          
         <Table>
-        <thead>
+        <Thead>
           <tr>
-            <th>Name</th>
-            <th>Ticker</th>
-            <th>Price</th>
-            <th>Balance</th>
-            <th>Actions</th>
+            <Th>Name</Th>
+            <Th>Ticker</Th>
+            <Th>Price</Th>
+            <Th>Balance</Th>
+            <Th>Actions</Th>
           </tr>
-        </thead>
-        <tbody>
+        </Thead>
+        <Tbody>
         {
         
         props.coinData.map( ({key,name, ticker, price, balance}) => 
@@ -35,7 +57,7 @@ export default function CoinList(props) {
           )
           
         }
-        </tbody>
+        </Tbody>
       </Table>
             
         )

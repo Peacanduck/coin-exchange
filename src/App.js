@@ -23,7 +23,7 @@ function insertPrice(data, key){
   
    let val = data.data.find(x => x.id === key);  
    let price = val.quotes['USD'].price;
-   console.log(parseFloat(Number(price)).toFixed(4));
+   
   return Number(parseFloat(Number(price)).toFixed(4));
   
 }

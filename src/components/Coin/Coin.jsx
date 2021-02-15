@@ -2,10 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const StyledRow = styled.td`
-    border:  1px solid #cccccc;
-    width: 20vh;
+    const StyledRow = styled.td`
+    padding: 15px;
+  text-align: left;
+  vertical-align:middle;
+  font-weight: 300;
+  font-size: 12px;
+  color: #fff;
+  background-color: #ff3d00;
     `;
+
+    const Button = styled.button`
+    border: none;
+    color: #fff;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%);
+    background-color: #512DA8;
+    `;
+    
 
 export default function Coin(props) {
    
@@ -24,7 +42,7 @@ export default function Coin(props) {
               <StyledRow>{props.balance}</StyledRow>
               <StyledRow>
                   <form action="#" method="POST">
-                  <button onClick={handleClick}>Refresh</button>
+                  <Button onClick={handleClick}>Refresh</Button>
                   </form>
                   </StyledRow>
           </tr>
