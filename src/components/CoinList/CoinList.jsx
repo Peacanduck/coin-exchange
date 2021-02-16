@@ -1,6 +1,7 @@
 import React from 'react'
 import Coin from '../Coin/Coin';
 import styled from 'styled-components';
+import Paper from '@material-ui/core/Paper';
 
 const Table = styled.table`
 margin: 5px auto 50px auto;
@@ -28,12 +29,18 @@ const Tbody = styled.tbody`
   border: 1px solid rgba(255,255,255,0.3);
 
 `;
-
+const paperStyle = {
+  display: 'block',
+  backgroundColor: '#212121',
+  padding: '3px',
+};
 
 export default function CoinList(props) {
     
-        return (          
+        return (    
+               
         <Table>
+          <Paper elevation={3} style={paperStyle}>
         <Thead>
           <tr>
             <Th>Name</Th>
@@ -58,7 +65,9 @@ export default function CoinList(props) {
           
         }
         </Tbody>
+        </Paper> 
       </Table>
+      
             
         )
 }

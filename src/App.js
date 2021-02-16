@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import Web3 from 'web3';
 
 
+
 const DivApp = styled.div`
 text-align: center;
 background-color: blue;
@@ -123,7 +124,9 @@ const componentDidMount = async () => {
     <DivApp className="App">
       <ExchangeHeader/>
       <AccountBalance amount={balance} account={accounts[0] || "no account selected"} showBalance={visible} handleHide={handleHide} enableEth={ConnectMetaMask}/>
+      
       <CoinList visible={visible} coinData={coinData} handleRefresh={handleRefresh} />
+      
     </DivApp>
   );
 
