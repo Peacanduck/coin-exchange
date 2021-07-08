@@ -1,56 +1,37 @@
 import React from 'react'
 import Coin from '../Coin/Coin';
-import styled from 'styled-components';
 import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableBody from '@material-ui/core/TableBody';
+import { makeStyles } from '@material-ui/core/styles';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
 
-const Table = styled.table`
-margin: 5px auto 50px auto;
-  table-layout: auto;
-  font-size: medium;
-  display: inline-block;
- 
-`;
-const Thead = styled.thead`
- background-color: rgba(255,255,255,0.3);
-`;
-const Th = styled.th`
-padding: 20px 15px;
-  text-align: left;
-  font-weight: 500;
-  font-size: 12px;
-  color: #fff;
-  text-transform: uppercase;
-`;
-
-const Tbody = styled.tbody`
-  height:300px;
-  overflow-x:auto;
-  margin-top: 0px;
-  border: 1px solid rgba(255,255,255,0.3);
-
-`;
-const paperStyle = {
-  display: 'block',
-  backgroundColor: '#212121',
-  padding: '3px',
-};
+const useStyles = makeStyles({
+  table: {
+    minWidth: 650,
+  },
+});
 
 export default function CoinList(props) {
     
+  const classes = useStyles();
+
         return (    
-               
-        <Table>
-          <Paper elevation={3} style={paperStyle}>
-        <Thead>
-          <tr>
-            <Th>Name</Th>
-            <Th>Ticker</Th>
-            <Th>Price</Th>
-            <Th>Balance</Th>
-            <Th>Actions</Th>
-          </tr>
-        </Thead>
-        <Tbody>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Name</TableCell>
+            <TableCell align="right">Ticker</TableCell>
+            <TableCell align="right">Price</TableCell>
+            <TableCell align="right">Balance</TableCell>
+            <TableCell align="right">Actions</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
         {
         
         props.coinData.map( ({key,name, ticker, price, balance}) => 
@@ -64,10 +45,10 @@ export default function CoinList(props) {
           )
           
         }
-        </Tbody>
-        </Paper> 
+        </TableBody>
       </Table>
       
+      </TableContainer>
             
-        )
+        );
 }
