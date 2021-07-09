@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Card from '@material-ui/core/Card';
+import { Button } from '@material-ui/core';
 
 const Section = styled.section`
      font-size:2rem;
@@ -9,7 +10,7 @@ const Section = styled.section`
      padding: 1.5rem 0 1.5rem 5rem;
         
 `;
-const Button = styled.button`
+/*const Button = styled.button`
     border: none;
     color: #fff;
     padding: 15px 32px;
@@ -21,7 +22,7 @@ const Button = styled.button`
     background-color: #512DA8;
     margin: 3px
     `;
-
+*/
 const cardStyle = {
 margin: '2px 2px',
 minWidth: 200,
@@ -49,8 +50,8 @@ export default function AccountBalance(props){
              <Card style={cardStyle}>
              {content}
              <br/>
-             <Button onClick={props.handleHide}>{buttonText}</Button> 
-             <Button onClick={props.enableEth}>Connect MetaMask</Button>
+             <Button color="primary" onClick={props.handleHide}>{buttonText}</Button> 
+             <Button color="primary" onClick={props.enableEth}>Connect MetaMask</Button>
              </Card>
             </Section>
         )
