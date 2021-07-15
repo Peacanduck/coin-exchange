@@ -3,10 +3,13 @@ import ExchangeHeader from './components/Headers/ExchangeHeader';
 import AccountBalance from './components/AccountBalance/AccountBalance'
 import CoinList from './components/CoinList/CoinList';
 import styled from 'styled-components';
+import Card from '@material-ui/core/Card';
 import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Web3 from 'web3';
+import MiniDrawer from './components/Menu/Menu';
+
 
 
 
@@ -121,11 +124,16 @@ const componentDidMount = async () => {
      }
   
   return (
+  
     <DivApp className="App">
-      <ExchangeHeader/>
-      <AccountBalance amount={balance} account={accounts[0] || "no account selected"} showBalance={visible} handleHide={handleHide} enableEth={ConnectMetaMask}/>
+      <MiniDrawer header={<ExchangeHeader/>} 
+                  body={<AccountBalance amount={balance} account={accounts[0] || "no account selected"} showBalance={visible} handleHide={handleHide} enableEth={ConnectMetaMask}/>}
+                  footer={<CoinList visible={visible} coinData={coinData} handleRefresh={handleRefresh} />} />
       
-      <CoinList visible={visible} coinData={coinData} handleRefresh={handleRefresh} />
+      
+      
+      
+      
       
     </DivApp>
   );
