@@ -17,6 +17,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import Avatar from '@material-ui/core/Avatar';
+import AssistantIcon from '@material-ui/icons/Assistant';
+import MenuList from '@material-ui/core/MenuList';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const drawerWidth = 240;
 
@@ -83,6 +87,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MiniDrawer(props) {
+    
+  const mIcons = [<AssistantIcon />,<MailIcon />,<InboxIcon />,<InboxIcon />];
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -98,6 +104,12 @@ export default function MiniDrawer(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleClick = (text, event) => {
+    event.preventDefault();
+
+    alert("hi "+text.toString());
+  }
 
   return (
     <div className={classes.root}>
@@ -118,19 +130,21 @@ export default function MiniDrawer(props) {
       >
         <div className={classes.toolbar}>
       <IconButton onClick={handleDrawer}>
-        {open ? <ChevronLeftIcon /> : <ChevronRightIcon />  }
+        {open ? <Avatar className={classes.orange}>N</Avatar> : <Avatar className={classes.orange}>N</Avatar>  }
       </IconButton>
     </div>
         
         <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+        <MenuList>
+          {['Overview', 'History', 'filler', 'Drafts'].map((text, index) => (
+              <form action="#" method="POST">
+            <MenuItem button key={text} onClick={(e) => handleClick(text, e)} >
+              <ListItemIcon>{mIcons[index]}</ListItemIcon>
               <ListItemText primary={text} />
-            </ListItem>
+            </MenuItem>
+            </form>
           ))}
-        </List>
+        </MenuList>
         <Divider />
         <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
