@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import Web3 from 'web3';
 import MiniDrawer from './components/Menu/Menu';
+import detectEthereumProvider from '@metamask/detect-provider';
 
 
 
@@ -21,6 +22,7 @@ color: #cccccc;
 
 const COIN_COUNT = 30;
 
+// This returns the provider, or null if it wasn't detected.
 const formatPrice = price => Number(parseFloat(Number(price)).toFixed(4));
 
 function insertPrice(data, key){
@@ -33,8 +35,8 @@ function insertPrice(data, key){
 }
 
 function App(props) {
-  let web3;
-  const [balance, setBalance] = useState(10000);
+  let web3 = new Web3(window.web3.currentProvider);;
+  const [balance, setBalance] = useState(0);
   const [visible, setVisible] = useState(true);
   const [coinData, setCoinData] = useState([]);
   const [accounts, setAccounts] = useState([]);
@@ -48,30 +50,24 @@ componentDidMount();
     
   });
 
-  window.ethereum.on('accountsChanged', function (accounts){
+  window.ethereum.on('accountsChanged',async function (accounts){
     setAccounts(accounts);
-    console.log("here");
+    setBalance( await balanceCheck(accounts[0]));
+    console.log(await balanceCheck(accounts[0]));
 console.log(accounts);
   });
 
   async function ConnectMetaMask(){
-    if (window.ethereum) {
-     web3 = new Web3(window.ethereum);
-      try { 
-         window.ethereum.enable().then(async function() {
-             // User has allowed account access to DApp...
-             const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-             
-             setAccounts(accounts);
-             console.log("there");
-             console.log(accounts);
-         });
-      } catch(e) {
-         // User has denied account access to DApp...
-      }
-   }
+    const provider = await detectEthereumProvider();
+    if (provider) {
+      // From now on, this should always be true:
+      // provider === window.ethereum
+      startApp(provider); // initialize your app
+    } else {
+      console.log('Please install MetaMask!');
+    }
    // Legacy DApp Browsers
-   else if (window.web3) {
+   if (window.web3) {
        web3 = new Web3(window.web3.currentProvider);
    }
    // Non-DApp Browsers
@@ -80,6 +76,46 @@ console.log(accounts);
    }
     
   }
+
+  function startApp(provider) {
+    try { 
+      // If the provider returned by detectEthereumProvider isn't the same as
+  // window.ethereum, something is overwriting it – perhaps another wallet.
+  if (provider !== window.ethereum) {
+    console.error('Do you have multiple wallets installed?');
+  }
+  // Access the decentralized web!
+      window.ethereum.enable().then(async function() {
+          // User has allowed account access to DApp...
+          // Request account access if needed
+      let tmpacc = await provider.send('eth_requestAccounts');
+      let bal = await balanceCheck(tmpacc.result[0]);
+ // Accounts now exposed, use them
+// ethereum.send('eth_sendTransaction', { from: accounts[0], /* ... */ })
+          
+          setAccounts(tmpacc.result);
+          console.log(tmpacc.result[0]);
+          console.log(bal);
+      });
+   } catch(e) {
+      // User has denied account access to DApp...
+   }
+  }
+
+  const balanceCheck = async (acc) => {
+    let bal = await web3.eth.getBalance(acc, function(err, result) {
+      if (err) {
+        console.log(err)
+      } else {
+        let val = web3.utils.fromWei(result, "ether") ;
+        setBalance(val);
+        console.log(val+ " ETH");
+         
+      }
+  });
+  return bal;
+ }
+ 
 
 const componentDidMount = async () => {
   
@@ -129,10 +165,6 @@ const componentDidMount = async () => {
       <MiniDrawer header={<ExchangeHeader/>} 
                   body={<AccountBalance amount={balance} account={accounts[0] || "no account selected"} showBalance={visible} handleHide={handleHide} enableEth={ConnectMetaMask}/>}
                   footer={<CoinList visible={visible} coinData={coinData} handleRefresh={handleRefresh} />} />
-      
-      
-      
-      
       
       
     </DivApp>
